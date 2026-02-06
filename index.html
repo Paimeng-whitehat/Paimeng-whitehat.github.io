@@ -339,7 +339,7 @@
             <div class="home-page" id="home-page">
                 <div class="home-text">你好旅行者，这是派蒙的个人博客</div>
                 <div class="png-imgs" id="png-imgs"></div>
-                <a href="https://github.com/Paimeng-whitehat" target="_blank" class="work-btn">查看我的作品</a>
+                <a href="https://github.com/你的用户名" target="_blank" class="work-btn">查看我的作品</a>
             </div>
             <div class="tutorial-page" id="tutorial-page">
                 <div class="tutorial-list" id="tutorial-list"></div>
@@ -357,14 +357,20 @@
     </div>
     <script>
         let allTutorials = [];
-        const TXT_FOLDER = 'docx/';
-        const PNG_FOLDER = 'PNG/';
+        // 👇 只需要改这里！把【你的GitHub用户名】换成你自己的（比如PaimonSec）
+        const GITHUB_USER = "Paimeng-whitehat";
+        const REPO_NAME = GITHUB_USER + ".github.io";
+        const TXT_FOLDER = "docx";
+        const PNG_FOLDER = "PNG";
+
         window.onload = function() {
             initNav();
             initThemeToggle();
             loadTutorialsAuto();
             loadImgsAuto();
         };
+
+        // 导航切换
         function initNav() {
             const homeNav = document.getElementById('home-nav');
             const tutorialNav = document.getElementById('tutorial-nav');
@@ -390,20 +396,21 @@
                 tutorialPage.style.display = 'block';
             };
         }
+
+        // GitHub API自动读取docx文件夹的TXT
         function loadTutorialsAuto() {
             const tutorialList = document.getElementById('tutorial-list');
             tutorialList.innerHTML = '';
-            fetch(TXT_FOLDER)
-                .then(res => res.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const links = doc.querySelectorAll('a[href$=".txt"]');
-                    links.forEach(link => {
-                        const txtName = link.href.split('/').pop();
-                        const tutTitle = txtName.replace('.txt', '');
-                        const filePath = TXT_FOLDER + txtName;
-                        fetch(filePath)
+            // 调用GitHub API获取文件夹文件
+            fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${TXT_FOLDER}`)
+                .then(res => res.json())
+                .then(files => {
+                    // 筛选出所有txt文件
+                    const txtFiles = files.filter(file => file.name.endsWith('.txt'));
+                    txtFiles.forEach(file => {
+                        const tutTitle = file.name.replace('.txt', '');
+                        // 读取TXT内容
+                        fetch(file.download_url)
                             .then(res => res.text())
                             .then(content => {
                                 allTutorials.push({ title: tutTitle, content: content });
@@ -420,21 +427,24 @@
                     tutorialList.innerHTML = '';
                 });
         }
+
+        // GitHub API自动读取PNG文件夹的图片（PNG/JPG/JPEG）
         function loadImgsAuto() {
             const pngImgs = document.getElementById('png-imgs');
             pngImgs.innerHTML = '';
-            fetch(PNG_FOLDER)
-                .then(res => res.text())
-                .then(html => {
-                    const parser = new DOMParser();
-                    const doc = parser.parseFromString(html, 'text/html');
-                    const links = doc.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"]');
-                    links.forEach(link => {
-                        const imgName = link.href.split('/').pop();
-                        const imgPath = PNG_FOLDER + imgName;
+            // 调用GitHub API获取文件夹文件
+            fetch(`https://api.github.com/repos/${GITHUB_USER}/${REPO_NAME}/contents/${PNG_FOLDER}`)
+                .then(res => res.json())
+                .then(files => {
+                    // 筛选出图片文件
+                    const imgTypes = ['.png', '.jpg', '.jpeg'];
+                    const imgFiles = files.filter(file => 
+                        imgTypes.some(type => file.name.toLowerCase().endsWith(type))
+                    );
+                    imgFiles.forEach(file => {
                         const item = document.createElement('div');
                         item.className = 'img-item';
-                        item.innerHTML = `<img src="${imgPath}" alt="${imgName}">`;
+                        item.innerHTML = `<img src="${file.download_url}" alt="${file.name}">`;
                         pngImgs.appendChild(item);
                     });
                 })
@@ -442,6 +452,8 @@
                     pngImgs.innerHTML = '';
                 });
         }
+
+        // 显示教程详情
         function showTutorialDetail(title, content) {
             const detailPage = document.getElementById('detail-page');
             const tutorialPage = document.getElementById('tutorial-page');
@@ -450,6 +462,8 @@
             document.getElementById('detail-title').innerText = title;
             document.getElementById('detail-content').innerText = content;
         }
+
+        // 主题切换
         function initThemeToggle() {
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
