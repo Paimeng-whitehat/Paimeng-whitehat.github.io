@@ -6,18 +6,14 @@
     <title>派蒙网安</title>
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* 全局重置 - 极致纯净，无冗余 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "PingFang SC", sans-serif;
-            transition: all 0.3s ease-in-out; /* 全局主题切换顺滑过渡 */
+            transition: all 0.3s ease-in-out;
         }
-
-        /* 主题变量定义：亮色(默认)/暗色，通过body类切换 */
         :root {
-            /* 亮色主题：白底+主题蓝 */
             --bg-color: #f8f9fa;
             --glass-bg: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(0, 113, 227, 0.2);
@@ -32,7 +28,6 @@
             --btn-hover: #0077ed;
         }
         body.dark {
-            /* 暗色主题：黑底+主题黄 */
             --bg-color: #121212;
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 214, 10, 0.2);
@@ -46,15 +41,12 @@
             --active-text: #121212;
             --btn-hover: #ffe047;
         }
-
-        /* 全局基础样式 - 单层玻璃底，无嵌套 */
         body {
             min-height: 100vh;
             background: var(--bg-color);
             color: var(--text-color);
             padding: 1rem;
         }
-        /* 全局单层液态玻璃核心 - 所有玻璃元素共用，无嵌套！ */
         .glass {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -63,21 +55,16 @@
             border-radius: 20px;
             box-shadow: var(--glass-shadow);
         }
-        /* 全局玻璃元素悬浮动画 - 统一灵动效果 */
         .glass:hover {
             box-shadow: var(--glass-hover-shadow);
             border-color: var(--glass-hover-border);
             transform: translateY(-2px);
         }
-
-        /* 容器居中 - 适配所有屏幕，非玻璃元素 */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 1rem 0;
         }
-
-        /* 顶部导航：全局玻璃+主题色+主题切换按钮，无嵌套 */
         .header {
             display: flex;
             justify-content: space-between;
@@ -120,7 +107,6 @@
             border: none;
             box-shadow: 0 0 0 2px var(--glass-hover-border);
         }
-        /* 主题切换按钮：全局玻璃，无嵌套 */
         .theme-toggle {
             border: none;
             outline: none;
@@ -131,8 +117,6 @@
             padding: 0.5rem 1rem;
             border-radius: 12px;
         }
-
-        /* 主内容区：全局玻璃，唯一玻璃容器，内部无嵌套玻璃 */
         .main {
             padding: 4rem 2rem;
             min-height: 70vh;
@@ -140,8 +124,6 @@
             align-items: center;
             justify-content: center;
         }
-
-        /* 首页：主内容区内部，非玻璃元素（避免嵌套），布局居中 */
         .home-page {
             display: flex;
             flex-direction: column;
@@ -155,7 +137,6 @@
             font-weight: 500;
             color: var(--text-color);
         }
-        /* PNG图片展示区：主内容区内部，非玻璃，无嵌套，网格布局 */
         .png-imgs {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -178,7 +159,6 @@
             transform: scale(1.03);
             filter: brightness(1.1);
         }
-        /* GitHub按钮：主内容区内部，非玻璃，主题色 */
         .work-btn {
             text-decoration: none;
             background: var(--active-bg);
@@ -194,8 +174,6 @@
             transform: translateY(-3px);
             box-shadow: var(--glass-hover-shadow);
         }
-
-        /* 教程页：主内容区内部，非玻璃元素（避免嵌套），无文件留空白 */
         .tutorial-page, .detail-page {
             display: none;
             width: 100%;
@@ -205,9 +183,8 @@
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 1.8rem;
             width: 100%;
-            min-height: 40vh; /* 保框：无文件时主内容区玻璃框不消失 */
+            min-height: 40vh;
         }
-        /* 教程项：非玻璃，主内容区内部，hover效果 */
         .tut-item {
             padding: 2rem 1.5rem;
             cursor: pointer;
@@ -227,8 +204,6 @@
             text-overflow: ellipsis;
             padding-left: 1rem;
         }
-
-        /* 教程详情页：主内容区内部，非玻璃，无嵌套 */
         .detail-header {
             display: flex;
             justify-content: space-between;
@@ -269,8 +244,6 @@
             padding: 1rem 0;
             min-height: 30vh;
         }
-
-        /* 原生滚动条：适配主题色 */
         ::-webkit-scrollbar {
             width: 10px;
             height: 10px;
@@ -288,8 +261,6 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--btn-hover);
         }
-
-        /* 响应式适配 - 电脑/平板/手机全兼容 */
         @media (max-width: 900px) {
             .header {
                 flex-direction: column;
@@ -349,9 +320,8 @@
         }
     </style>
 </head>
-<body class="light"> <!-- 默认亮色主题，切换后为dark -->
+<body class="light">
     <div class="container">
-        <!-- 顶部导航：全局单层玻璃，无嵌套 -->
         <header class="header glass">
             <div class="logo">
                 <i class="fas fa-shield-halved"></i>
@@ -361,29 +331,19 @@
                 <a href="javascript:;" class="active" id="home-nav">首页</a>
                 <a href="javascript:;" id="tutorial-nav">教程</a>
             </nav>
-            <!-- 主题切换按钮：亮色/暗色 -->
             <button class="theme-toggle glass" id="themeToggle">
                 <i class="fas fa-moon"></i>
             </button>
         </header>
-
-        <!-- 主内容区：全局唯一单层玻璃容器，内部无嵌套玻璃 -->
         <main class="main glass">
-            <!-- 首页：主内容区内部，非玻璃元素 -->
             <div class="home-page" id="home-page">
                 <div class="home-text">你好旅行者，这是派蒙的个人博客</div>
-                <!-- PNG图片展示区：非玻璃，无嵌套 -->
                 <div class="png-imgs" id="png-imgs"></div>
-                <!-- GitHub跳转按钮 -->
                 <a href="https://github.com/Paimeng-whitehat" target="_blank" class="work-btn">查看我的作品</a>
             </div>
-
-            <!-- 教程页：主内容区内部，非玻璃元素 -->
             <div class="tutorial-page" id="tutorial-page">
                 <div class="tutorial-list" id="tutorial-list"></div>
             </div>
-
-            <!-- 教程详情页：主内容区内部，非玻璃元素 -->
             <div class="detail-page" id="detail-page">
                 <div class="detail-header">
                     <button class="back-btn glass" id="back-btn">
@@ -395,30 +355,22 @@
             </div>
         </main>
     </div>
-
     <script>
-        // 全局变量：存储TXT教程+PNG图片，固定读取对应文件夹
         let allTutorials = [];
-        let allPngImgs = [];
-        const TXT_FOLDER = 'docx';
-        const PNG_FOLDER = 'PNG';
-
-        // 页面加载初始化：所有功能一次性生效
+        const TXT_FOLDER = 'docx/';
+        const PNG_FOLDER = 'PNG/';
         window.onload = function() {
-            initNav();        // 导航切换
-            loadAllTutorials();// 加载docx教程
-            loadAllPngImgs(); // 加载PNG图片
-            initThemeToggle();// 明暗主题切换
+            initNav();
+            initThemeToggle();
+            loadTutorialsAuto();
+            loadImgsAuto();
         };
-
-        // 1. 导航切换：首页/教程，无颠倒
         function initNav() {
             const homeNav = document.getElementById('home-nav');
             const tutorialNav = document.getElementById('tutorial-nav');
             const homePage = document.getElementById('home-page');
             const tutorialPage = document.getElementById('tutorial-page');
             const detailPage = document.getElementById('detail-page');
-
             homeNav.onclick = () => {
                 homeNav.classList.add('active');
                 tutorialNav.classList.remove('active');
@@ -426,7 +378,6 @@
                 tutorialPage.style.display = 'none';
                 detailPage.style.display = 'none';
             };
-
             tutorialNav.onclick = () => {
                 tutorialNav.classList.add('active');
                 homeNav.classList.remove('active');
@@ -434,66 +385,63 @@
                 homePage.style.display = 'none';
                 detailPage.style.display = 'none';
             };
-
-            // 详情页返回
             document.getElementById('back-btn').onclick = () => {
                 detailPage.style.display = 'none';
                 tutorialPage.style.display = 'block';
             };
         }
-
-        // 2. 加载docx文件夹TXT教程【修改处1：添加TXT文件名】
-        function loadAllTutorials() {
+        function loadTutorialsAuto() {
             const tutorialList = document.getElementById('tutorial-list');
-            // 【唯一修改处1】：添加TXT文件名（不带.txt，无文件则留空[]）
-            const txtFileNames = [
-                // 示例："网安基础入门" → 对应 docx/网安基础入门.txt
-                // 无文件则保持：[]
-            ];
-
-            allTutorials = [];
-            tutorialList.innerHTML = ''; // 无文件则纯空白，主内容区玻璃框保留
-
-            txtFileNames.forEach(name => {
-                const filePath = `${TXT_FOLDER}/${name}.txt`;
-                fetch(filePath)
-                    .then(res => res.ok ? res.text() : Promise.reject())
-                    .then(content => {
-                        allTutorials.push({ title: name, content: content });
-                        const item = document.createElement('div');
-                        item.className = 'tut-item';
-                        item.innerHTML = `<h3>${name}</h3>`;
-                        item.onclick = () => showTutorialDetail(name, content);
-                        tutorialList.appendChild(item);
-                    })
-                    .catch(() => {});
-            });
+            tutorialList.innerHTML = '';
+            fetch(TXT_FOLDER)
+                .then(res => res.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const links = doc.querySelectorAll('a[href$=".txt"]');
+                    links.forEach(link => {
+                        const txtName = link.href.split('/').pop();
+                        const tutTitle = txtName.replace('.txt', '');
+                        const filePath = TXT_FOLDER + txtName;
+                        fetch(filePath)
+                            .then(res => res.text())
+                            .then(content => {
+                                allTutorials.push({ title: tutTitle, content: content });
+                                const item = document.createElement('div');
+                                item.className = 'tut-item';
+                                item.innerHTML = `<h3>${tutTitle}</h3>`;
+                                item.onclick = () => showTutorialDetail(tutTitle, content);
+                                tutorialList.appendChild(item);
+                            })
+                            .catch(() => {});
+                    });
+                })
+                .catch(() => {
+                    tutorialList.innerHTML = '';
+                });
         }
-
-        // 3. 加载PNG文件夹图片【修改处2：添加PNG文件名】
-        function loadAllPngImgs() {
+        function loadImgsAuto() {
             const pngImgs = document.getElementById('png-imgs');
-            // 【唯一修改处2】：添加图片名（带后缀，PNG/JPG都支持，无图则留空[]）
-            const pngFileNames = [
-                // 示例："首页图1.png"、"作品图2.jpg" → 对应 PNG/首页图1.png
-                // 无图则保持：[]
-            ];
-
-            allPngImgs = [];
-            pngImgs.innerHTML = ''; // 无图则纯空白，主内容区玻璃框保留
-
-            pngFileNames.forEach(name => {
-                const imgPath = `${PNG_FOLDER}/${name}`;
-                const imgTitle = name.replace(/\.\w+$/, '');
-                allPngImgs.push({ title: imgTitle, src: imgPath });
-                const item = document.createElement('div');
-                item.className = 'img-item';
-                item.innerHTML = `<img src="${imgPath}" alt="${imgTitle}">`;
-                pngImgs.appendChild(item);
-            });
+            pngImgs.innerHTML = '';
+            fetch(PNG_FOLDER)
+                .then(res => res.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const links = doc.querySelectorAll('a[href$=".png"], a[href$=".jpg"], a[href$=".jpeg"]');
+                    links.forEach(link => {
+                        const imgName = link.href.split('/').pop();
+                        const imgPath = PNG_FOLDER + imgName;
+                        const item = document.createElement('div');
+                        item.className = 'img-item';
+                        item.innerHTML = `<img src="${imgPath}" alt="${imgName}">`;
+                        pngImgs.appendChild(item);
+                    });
+                })
+                .catch(() => {
+                    pngImgs.innerHTML = '';
+                });
         }
-
-        // 4. 显示教程详情
         function showTutorialDetail(title, content) {
             const detailPage = document.getElementById('detail-page');
             const tutorialPage = document.getElementById('tutorial-page');
@@ -502,27 +450,19 @@
             document.getElementById('detail-title').innerText = title;
             document.getElementById('detail-content').innerText = content;
         }
-
-        // 5. 明暗主题切换：一键切换，记忆上次选择（刷新不丢失）
         function initThemeToggle() {
             const themeToggle = document.getElementById('themeToggle');
             const body = document.body;
             const icon = themeToggle.querySelector('i');
-
-            // 读取本地存储的主题，无则默认亮色
             const savedTheme = localStorage.getItem('blogTheme') || 'light';
             body.className = savedTheme;
             updateThemeIcon(savedTheme);
-
-            // 点击切换主题
             themeToggle.onclick = () => {
                 const newTheme = body.className === 'light' ? 'dark' : 'light';
                 body.className = newTheme;
-                localStorage.setItem('blogTheme', newTheme); // 保存主题
+                localStorage.setItem('blogTheme', newTheme);
                 updateThemeIcon(newTheme);
             };
-
-            // 更新主题图标：月亮/太阳
             function updateThemeIcon(theme) {
                 icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
             }
